@@ -107,4 +107,8 @@ module WashOutHelper
     end
     extend_with.merge(data)
   end
+
+  def wsdl_occurence_part(param, inject, extend_with = {})
+    extend_with
+  end
 end
