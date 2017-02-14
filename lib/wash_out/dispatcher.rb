@@ -33,6 +33,12 @@ module WashOut
     def _map_soap_parameters
       self.params = _load_params action_spec[:in],
         _strip_empty_nodes(action_spec[:in], xml_data)
+
+      # try without container
+      if self.params.blank?
+        self.params = _load_params action_spec[:in].first.map,
+          _strip_empty_nodes(action_spec[:in].first.map, xml_data)
+      end
     end
 
     def _map_soap_headers
