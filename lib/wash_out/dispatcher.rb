@@ -137,12 +137,17 @@ module WashOut
         header = HashWithIndifferentAccess.new(header)
       end
 
+      # Skiping first container due to Soap/literal part
+      injected = inject.call(result, @action_spec[:out])
+      injected_clone = injected.first.map
+      injected_clone.first.map = injected.first.map.first.map
+
       render :template => "wash_out/#{soap_config.wsdl_style}/response",
              :layout => false,
              :locals => {
                :header => header.present? ? inject.call(header, @action_spec[:header_out])
                                       : nil,
-               :result => inject.call(result, @action_spec[:out])
+               :result => injected_clone
              },
              :content_type => 'text/xml'
     end
