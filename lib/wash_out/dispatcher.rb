@@ -35,7 +35,7 @@ module WashOut
         _strip_empty_nodes(action_spec[:in], xml_data)
 
       # try without container
-      if self.params.blank?
+      if self.params.blank? && action_spec[:in].present?
         self.params = _load_params action_spec[:in].first.map,
           _strip_empty_nodes(action_spec[:in].first.map, xml_data)
       end
